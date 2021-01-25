@@ -1,0 +1,14 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+
+# Environments
+.venv
+
+# Unit test / coverage reports
+.pytest_cache/
+htmlcov/
+
+# Code quality
+.mypy_cache/
+
+.pg_data

@@ -1,0 +1,35 @@
+version: "3.8"
+services:
+  notes-api:
+    build:
+      context: .
+    volumes:
+      - ./src:/usr/src
+    ports:
+      - 8000:8080
+    environment:
+      - environment=development
+      - database_uri=postgresql+asyncpg://postgres:postgres@db/notes
+    networks:
+      default:
+        aliases:
+          - notes-api
+    depends_on:
+      - postgres
+  postgres:
+    image: postgres:13
+    volumes:
+      - ${PWD}/.pg_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: notes
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - 5432:5432
+    networks:
+      default:
+        aliases:
+          - db
+networks:
+  default:
+
