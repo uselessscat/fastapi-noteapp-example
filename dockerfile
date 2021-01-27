@@ -2,6 +2,7 @@ FROM python:3.8
 
 WORKDIR /usr/src
 
+# Copy dependencies definition
 COPY src/poetry.lock src/pyproject.toml ./
 
 # Install deps
