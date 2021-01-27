@@ -5,11 +5,15 @@ import logging
 
 from pydantic import BaseSettings
 
+from app.utils.strings import get_app_version
+
 
 class Settings(BaseSettings):
     ''' App settings. '''
 
     project_name: str = 'notes-api'
+    project_version: str = get_app_version()
+
     environment: str = 'production'
     debug: bool = False
 
@@ -19,8 +23,9 @@ class Settings(BaseSettings):
 
 class DevSettingsBuilder():
     ''' Settings builder intended to be used in development environment '''
-
-    def build(self) -> Settings:
+    @classmethod
+    def build(cls) -> Settings:
+        ''' Create a Settings instance configured for development '''
         return Settings(
             environment='development',
             debug=True

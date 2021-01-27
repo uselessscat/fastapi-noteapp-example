@@ -10,3 +10,7 @@ def build_postgres_dsn(uri_components: Dict[str, str]) -> str:
         port=uri_components.get('port'),
         database_name=uri_components.get('name'),
     )
+
+
+def get_app_version():
+    return '0.0.1'
