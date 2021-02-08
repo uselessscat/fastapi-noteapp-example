@@ -15,4 +15,4 @@ COPY ./src .
 
 EXPOSE 8000
 
-CMD [ "gunicorn", "-w", "4", "-k", "uvicorn.workers.UvicornWorker", "-b", "0.0.0.0:8000", "app.main:app" ]
+CMD hypercorn -w 4 -k uvloop -b 0.0.0.0:8000 app.main:app

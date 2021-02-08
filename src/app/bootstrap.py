@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from fastapi import FastAPI
 
 from app.config import Settings, Environment
@@ -16,7 +18,7 @@ class AppBuilder():
         self.settings = settings
 
     @classmethod
-    def with_environment_settings(cls) -> 'AppBuilder':
+    def with_environment_settings(cls) -> AppBuilder:
         ''' Create a builder instance with configuration gathered from env '''
         return cls(settings=Environment.select())
 
@@ -34,10 +36,18 @@ class AppBuilder():
         pass
 
     def _register_routes(self, app: FastAPI) -> None:
-        pass
+        from app.controllers import status
+
+        app.include_router(status.router)
 
     def _register_middlewares(self, app: FastAPI) -> None:
-        pass
+        from app.middlewares.identify import IdentifyRequestsMiddleware
+        from app.middlewares.benchmark import TimeRequestsMiddleware
+        from fastapi.middleware.gzip import GZipMiddleware
+
+        app.add_middleware(IdentifyRequestsMiddleware)
+        app.add_middleware(TimeRequestsMiddleware)
+        app.add_middleware(GZipMiddleware)
 
     def build(self) -> FastAPI:
         try:

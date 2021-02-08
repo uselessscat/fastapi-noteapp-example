@@ -43,7 +43,7 @@ class Environment():
         if env_vars.get('environment') == 'development':
             settings_class = DevSettingsBuilder
         else:
-            # TODO: Add production environment
+            # TODO: Add production default environment values
             settings_class = DevSettingsBuilder
 
         settings = settings_class().build()

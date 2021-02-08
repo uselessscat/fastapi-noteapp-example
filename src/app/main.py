@@ -1,8 +1,8 @@
 from fastapi import FastAPI
 
-app = FastAPI()
+from app.bootstrap import AppBuilder
+from app.config import Settings
 
-
-@app.get('/')
-async def root():
-    return {'message': 'Hello World'}
+app = AppBuilder \
+    .with_environment_settings() \
+    .build()
